@@ -4,171 +4,6 @@
 
 export const routesConfig = [
   // =====================================================
-  // ACADEMIC MODULE
-  // =====================================================
-  {
-    module: 'academic', title: 'Academic Session', plural: 'Academic Sessions',
-    basePath: '/academic/sessions', allowedScopes: ['ADMIN'], endpoint: '/academic/sessions',
-    listColumns: [
-      { key: 'name', label: 'Session Name' },
-      { key: 'startDate', label: 'Start Date', type: 'date' },
-      { key: 'endDate', label: 'End Date', type: 'date' },
-      { key: 'isDefault', label: 'Default', type: 'boolean' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Session Name', type: 'text', required: true, fullWidth: true, placeholder: 'e.g. 2024-2025' },
-      { name: 'startDate', label: 'Start Date', type: 'date', required: true },
-      { name: 'endDate', label: 'End Date', type: 'date', required: true },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-      { name: 'isDefault', label: 'Set as Default', type: 'select', required: true, options: [{ label: 'Yes', value: 'true' }, { label: 'No', value: 'false' }] },
-    ],
-  },
-  {
-    module: 'academic', title: 'Program Type', plural: 'Program Types',
-    basePath: '/academic/program-types', allowedScopes: ['ADMIN'], endpoint: '/academic/program-types',
-    listColumns: [
-      { key: 'name', label: 'Name' },
-      { key: 'code', label: 'Code' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Program Type Name', type: 'text', required: true },
-      { name: 'code', label: 'Code', type: 'text', required: true },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Department', plural: 'Departments',
-    basePath: '/academic/departments', allowedScopes: ['ADMIN'], endpoint: '/academic/departments',
-    listColumns: [
-      { key: 'name', label: 'Department Name' },
-      { key: 'code', label: 'Code' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Department Name', type: 'text', required: true },
-      { name: 'code', label: 'Department Code', type: 'text', required: true },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Program', plural: 'Programs',
-    basePath: '/academic/programs', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/programs',
-    listColumns: [
-      { key: 'name', label: 'Program Name' },
-      { key: 'code', label: 'Code' },
-      { key: 'programType.name', label: 'Type' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Program Name', type: 'text', required: true },
-      { name: 'code', label: 'Program Code', type: 'text', required: true },
-      { name: 'programTypeId', label: 'Program Type', type: 'api-select', optionsEndpoint: '/academic/program-types', required: true },
-      { name: 'departmentId', label: 'Department', type: 'api-select', optionsEndpoint: '/academic/departments' },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Division', plural: 'Divisions',
-    basePath: '/academic/divisions', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/divisions',
-    listColumns: [
-      { key: 'name', label: 'Division Name' },
-      { key: 'code', label: 'Code' },
-      { key: 'program.name', label: 'Program' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Division Name', type: 'text', required: true },
-      { name: 'code', label: 'Code', type: 'text' },
-      { name: 'programId', label: 'Program', type: 'api-select', optionsEndpoint: '/academic/programs', required: true },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Course', plural: 'Courses',
-    basePath: '/academic/courses', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/courses',
-    listColumns: [
-      { key: 'name', label: 'Course Name' },
-      { key: 'code', label: 'Code' },
-      { key: 'duration', label: 'Duration (Months)' },
-      { key: 'division.name', label: 'Division' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Course Name', type: 'text', required: true, fullWidth: true },
-      { name: 'code', label: 'Course Code', type: 'text', required: true },
-      { name: 'duration', label: 'Duration (Months)', type: 'number', required: true },
-      { name: 'divisionId', label: 'Division', type: 'api-select', optionsEndpoint: '/academic/divisions' },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Batch', plural: 'Batches',
-    basePath: '/academic/batches', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/batches',
-    listColumns: [
-      { key: 'name', label: 'Batch Name' },
-      { key: 'course.name', label: 'Course' },
-      { key: 'maxStrength', label: 'Max Strength' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Batch Name', type: 'text', required: true },
-      { name: 'courseId', label: 'Course', type: 'api-select', optionsEndpoint: '/academic/courses', required: true },
-      { name: 'maxStrength', label: 'Max Strength', type: 'number' },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Subject', plural: 'Subjects',
-    basePath: '/academic/subjects', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/subjects',
-    listColumns: [
-      { key: 'name', label: 'Subject Name' },
-      { key: 'code', label: 'Code' },
-      { key: 'subjectType.name', label: 'Type' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Subject Name', type: 'text', required: true },
-      { name: 'code', label: 'Subject Code', type: 'text', required: true },
-      { name: 'subjectTypeId', label: 'Subject Type', type: 'api-select', optionsEndpoint: '/academic/subject-types' },
-      { name: 'maxTheory', label: 'Max Theory Marks', type: 'number' },
-      { name: 'maxPractical', label: 'Max Practical Marks', type: 'number' },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Subject Type', plural: 'Subject Types',
-    basePath: '/academic/subject-types', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/subject-types',
-    listColumns: [
-      { key: 'name', label: 'Type Name' },
-      { key: 'code', label: 'Code' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Type Name', type: 'text', required: true },
-      { name: 'code', label: 'Code', type: 'text' },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Class Timing', plural: 'Class Timings',
-    basePath: '/academic/class-timings', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/class-timings',
-    listColumns: [
-      { key: 'name', label: 'Timing Name' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Timing Name', type: 'text', required: true },
-      { name: 'description', label: 'Description', type: 'textarea', fullWidth: true },
-    ],
-  },
-  {
-    module: 'academic', title: 'Enrollment Seat', plural: 'Enrollment Seats',
-    basePath: '/academic/enrollment-seats', allowedScopes: ['ADMIN', 'EMPLOYEE'], endpoint: '/academic/enrollment-seats',
-    listColumns: [
-      { key: 'name', label: 'Seat Category' },
-      { key: 'totalSeats', label: 'Total Seats' },
-      { key: 'course.name', label: 'Course' },
-    ],
-    formFields: [
-      { name: 'name', label: 'Seat Category', type: 'text', required: true },
-      { name: 'totalSeats', label: 'Total Seats', type: 'number', required: true },
-      { name: 'courseId', label: 'Course', type: 'api-select', optionsEndpoint: '/academic/courses', required: true },
-    ],
-  },
-
-  // =====================================================
   // STUDENT MODULE
   // =====================================================
   {
@@ -215,7 +50,7 @@ export const routesConfig = [
   },
   {
     module: 'student', title: 'Student', plural: 'Students',
-    basePath: '/students', allowedScopes: ['ADMIN', 'EMPLOYEE', 'STUDENT', 'GUARDIAN'], endpoint: '/students', readOnlyForScopes: ['STUDENT', 'GUARDIAN'],
+    basePath: '/students/directory', allowedScopes: ['ADMIN', 'EMPLOYEE', 'STUDENT', 'GUARDIAN'], endpoint: '/students', readOnlyForScopes: ['STUDENT', 'GUARDIAN'],
     listColumns: [
       { key: 'firstName', label: 'First Name' },
       { key: 'lastName', label: 'Last Name' },
@@ -482,6 +317,7 @@ export const routesConfig = [
   {
     module: 'fee', title: 'Transaction', plural: 'Transactions',
     basePath: '/fees/transactions', allowedScopes: ['ADMIN', 'EMPLOYEE', 'STUDENT', 'GUARDIAN'], endpoint: '/fees/transactions', readOnlyForScopes: ['STUDENT', 'GUARDIAN'],
+    hideEdit: true, hideDelete: true,
     listColumns: [{ key: 'voucherNumber', label: 'Voucher No' }, { key: 'type', label: 'Type', type: 'status' }, { key: 'amount', label: 'Amount', type: 'currency' }, { key: 'date', label: 'Date', type: 'date' }],
     formFields: [
       { name: 'type', label: 'Type', type: 'select', required: true, options: [{ label: 'Receipt', value: 'receipt' }, { label: 'Payment', value: 'payment' }, { label: 'Journal', value: 'journal' }, { label: 'Contra', value: 'contra' }] },

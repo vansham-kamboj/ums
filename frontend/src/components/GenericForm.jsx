@@ -43,10 +43,19 @@ export default function GenericForm({ title, endpoint, fields, listPath, section
 
   // Fetch dynamic select options
   useEffect(() => {
-    const dynamicFields = fields.filter(f => f.type === 'api-select' && f.optionsEndpoint);
-    dynamicFields.forEach(async (field) => {
+    const fetchOptions = async (field) => {
       try {
-        const res = await api.get(field.optionsEndpoint);
+        let endpoint = field.optionsEndpoint;
+        if (field.dependsOn) {
+          const parentValue = formData[field.dependsOn];
+          if (!parentValue) {
+            setDynamicOptions(prev => ({ ...prev, [field.name]: [] }));
+            return;
+          }
+          endpoint = `${endpoint}?${field.dependsOn}=${parentValue}`;
+        }
+        
+        const res = await api.get(endpoint);
         const items = Array.isArray(res.data.data) ? res.data.data : (res.data.data?.data || []);
         setDynamicOptions(prev => ({
           ...prev,
@@ -58,8 +67,18 @@ export default function GenericForm({ title, endpoint, fields, listPath, section
       } catch (error) {
         console.error(`Failed to fetch options for ${field.name}:`, error);
       }
+    };
+
+    const dynamicFields = fields.filter(f => f.type === 'api-select' && f.optionsEndpoint);
+    dynamicFields.forEach(field => {
+      // If it depends on something, only fetch if parent is set
+      if (!field.dependsOn || formData[field.dependsOn]) {
+        fetchOptions(field);
+      } else {
+        setDynamicOptions(prev => ({ ...prev, [field.name]: [] }));
+      }
     });
-  }, [fields]);
+  }, [fields, formData]); // Re-run when formData changes for dependent fields
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;

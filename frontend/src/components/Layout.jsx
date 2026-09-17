@@ -97,7 +97,6 @@ const getNavGroupsForUser = (user) => {
         items: [
           { label: 'Announcements', path: '/communication/announcements' },
           { label: 'Events & Holidays', path: '/calendar/events' },
-          { label: 'Chat', path: '/chat' },
           { label: 'Notifications', path: '/notifications' },
         ],
       },
@@ -147,7 +146,7 @@ const navGroupsAdminEmployee = [
     items: [
       { label: 'Enquiries', path: '/students/enquiries' },
       { label: 'Registrations', path: '/students/registrations' },
-      { label: 'Students', path: '/students' },
+      { label: 'Students', path: '/students/directory' },
       { label: 'Student Groups', path: '/students/groups' },
       { label: 'Alumni', path: '/students/alumni' },
       { label: 'Guardians', path: '/guardians' },
@@ -158,6 +157,7 @@ const navGroupsAdminEmployee = [
     icon: Briefcase,
     items: [
       { label: 'Employees', path: '/employees' },
+      { label: 'Leave Management', path: '/employees/leave' },
       { label: 'Work Shifts', path: '/employees/work-shifts' },
       { label: 'Timesheets', path: '/employees/timesheets' },
       { label: 'Leave Types', path: '/employees/leave-types' },
@@ -166,34 +166,35 @@ const navGroupsAdminEmployee = [
       { label: 'Pay Heads', path: '/employees/pay-heads' },
       { label: 'Salary Templates', path: '/employees/salary-templates' },
       { label: 'Salary Structures', path: '/employees/salary-structures' },
-      { label: 'Payroll', path: '/employees/payroll' },
+      { label: 'Payroll', path: '/payroll' },
     ],
   },
   {
     label: 'Fee & Finance',
     icon: DollarSign,
     items: [
+      { label: 'Fee Dashboard', path: '/fees/dashboard' },
+      { label: 'Fee Collection', path: '/fees/collect' },
+      { label: 'Transactions Ledger', path: '/fees/ledger' },
       { label: 'Fee Groups', path: '/fees/groups' },
       { label: 'Fee Heads', path: '/fees/heads' },
       { label: 'Fee Structures', path: '/fees/structures' },
       { label: 'Fee Concessions', path: '/fees/concessions' },
       { label: 'Student Fees', path: '/fees/student-fees' },
-      { label: 'Fee Collection', path: '/fees/collect' },
-      { label: 'Ledger Types', path: '/fees/ledger-types' },
-      { label: 'Ledgers', path: '/fees/ledgers' },
-      { label: 'Transactions', path: '/fees/transactions' },
     ],
   },
   {
     label: 'Examination',
     icon: ClipboardList,
     items: [
+      { label: 'Exam Setup', path: '/exams/setup' },
       { label: 'Exam Terms', path: '/exams/terms' },
       { label: 'Exams', path: '/exams' },
       { label: 'Exam Grades', path: '/exams/grades' },
       { label: 'Exam Assessments', path: '/exams/assessments' },
       { label: 'Exam Schedules', path: '/exams/schedules' },
       { label: 'Marks Entry', path: '/exams/marks-entry' },
+      { label: 'Online Exams', path: '/online-exams' },
     ],
   },
   {
@@ -201,6 +202,8 @@ const navGroupsAdminEmployee = [
     icon: Clock,
     items: [
       { label: 'Mark Attendance', path: '/attendance/mark' },
+      { label: 'Attendance Reports', path: '/attendance/reports' },
+      { label: 'Attendance History', path: '/attendance/history' },
       { label: 'Student Attendance', path: '/attendance/students' },
       { label: 'Employee Attendance', path: '/attendance/employees' },
       { label: 'Timetable', path: '/timetable' },
@@ -217,9 +220,11 @@ const navGroupsAdminEmployee = [
       { label: 'Fuel Records', path: '/transport/fuel-records' },
       { label: 'Books', path: '/library/books' },
       { label: 'Book Issues', path: '/library/issues' },
+      { label: 'Hostel Occupancy', path: '/hostel' },
       { label: 'Hostel Blocks', path: '/hostel/blocks' },
       { label: 'Hostel Floors', path: '/hostel/floors' },
       { label: 'Hostel Rooms', path: '/hostel/rooms' },
+      { label: 'Inventory', path: '/inventory' },
       { label: 'Stock Categories', path: '/inventory/categories' },
       { label: 'Stock Items', path: '/inventory/items' },
       { label: 'Vendors', path: '/inventory/vendors' },
@@ -236,7 +241,6 @@ const navGroupsAdminEmployee = [
       { label: 'Holidays', path: '/calendar/holidays' },
       { label: 'Notifications', path: '/notifications' },
       { label: 'Reminders', path: '/notifications/reminders' },
-      { label: 'Chat', path: '/chat' },
       { label: 'Social Wall', path: '/social-wall' },
     ],
   },
@@ -260,8 +264,8 @@ const navGroupsAdminEmployee = [
     icon: CheckSquare,
     items: [
       { label: 'Tasks', path: '/tasks' },
-      { label: 'Approval Types', path: '/approvals/types' },
-      { label: 'Approval Requests', path: '/approvals/requests' },
+      { label: 'Approvals', path: '/approvals' },
+      { label: 'Approval Config', path: '/approvals/config' },
       { label: 'Custom Forms', path: '/custom-forms' },
       { label: 'Discipline Incidents', path: '/discipline/incidents' },
     ],
@@ -270,18 +274,16 @@ const navGroupsAdminEmployee = [
     label: 'Content & Resources',
     icon: FileText,
     items: [
+      { label: 'Certificates', path: '/certificates' },
+      { label: 'Certificate Templates', path: '/certificates/templates' },
+      { label: 'Online Exams', path: '/online-exams' },
+      { label: 'Blog Posts', path: '/cms/blog/new' },
+      { label: 'News Articles', path: '/cms/news/new' },
+      { label: 'Gallery', path: '/cms/gallery' },
       { label: 'Assignments', path: '/resources/assignments' },
-      { label: 'Diary', path: '/resources/diary' },
       { label: 'Lesson Plans', path: '/resources/lesson-plans' },
       { label: 'Syllabus', path: '/resources/syllabus' },
       { label: 'Learning Materials', path: '/resources/materials' },
-      { label: 'Online Classes', path: '/resources/online-classes' },
-      { label: 'Online Exams', path: '/online-exams' },
-      { label: 'Blog Posts', path: '/blog/posts' },
-      { label: 'News Articles', path: '/news/articles' },
-      { label: 'Gallery', path: '/gallery' },
-      { label: 'Certificates', path: '/certificates/templates' },
-      { label: 'ID Cards', path: '/certificates/id-card-templates' },
     ],
   },
   {
@@ -297,7 +299,7 @@ const navGroupsAdminEmployee = [
     label: 'Website CMS',
     icon: Globe,
     items: [
-      { label: 'Site Pages', path: '/website/pages' },
+      { label: 'Site Pages', path: '/cms/pages' },
       { label: 'Site Menus', path: '/website/menus' },
       { label: 'Website Config', path: '/website/config' },
     ],
@@ -340,18 +342,17 @@ function SidebarGroup({ group, isCollapsed }) {
     const Icon = item.icon;
     const isActive = location.pathname === item.path;
     return (
-      <Link
-        to={item.path}
-        className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all ${
-          isActive
-            ? 'bg-brand-600 text-white shadow-lg shadow-primary-600/30'
-            : 'text-text-disabled hover:bg-ink-700 hover:text-white'
-        } ${isCollapsed ? 'justify-center' : ''}`}
-        title={isCollapsed ? item.label : undefined}
-      >
-        {Icon && <Icon className="w-5 h-5 flex-shrink-0" />}
-        {!isCollapsed && <span>{item.label}</span>}
-      </Link>
+      <div className="mb-3">
+        {!isCollapsed && <p className="nav-label">Workspace</p>}
+        <Link
+          to={item.path}
+          className={`nav-item ${isActive ? 'nav-item-active' : ''} ${isCollapsed ? 'justify-center px-0' : ''}`}
+          title={isCollapsed ? item.label : undefined}
+        >
+          {Icon && <Icon className="w-4 h-4 flex-shrink-0" />}
+          {!isCollapsed && <span>{item.label}</span>}
+        </Link>
+      </div>
     );
   }
 
@@ -361,26 +362,27 @@ function SidebarGroup({ group, isCollapsed }) {
   );
 
   if (isCollapsed) {
+    const exactMatchExists = group.items.some(i => location.pathname === i.path);
     return (
-      <div className="relative group/nav">
+      <div className="relative group/nav mb-1">
         <button
-          className={`w-full flex items-center justify-center p-2.5 rounded-md transition-all ${
-            hasActive ? 'bg-brand-600/20 text-brand-500' : 'text-text-disabled hover:bg-ink-700 hover:text-white'
-          }`}
+          className={`nav-item justify-center px-0 ${hasActive ? 'nav-item-active' : ''}`}
           title={group.label}
         >
-          {GroupIcon && <GroupIcon className="w-5 h-5" />}
+          {GroupIcon && <GroupIcon className="w-4 h-4" />}
         </button>
         {/* Flyout menu on hover */}
-        <div className="absolute left-full top-0 ml-2 w-48 bg-ink-700 rounded-md shadow-lg border border-ink-700 py-1 hidden group-hover/nav:block z-50">
-          <div className="px-3 py-2 text-xs font-semibold text-text-disabled uppercase">{group.label}</div>
+        <div className="absolute left-full top-0 ml-2 w-52 glass-panel shadow-xl border border-glass-border py-1.5 hidden group-hover/nav:block z-50 rounded-xl">
+          <div className="nav-label pt-1">{group.label}</div>
           {group.items.map((item) => {
-            const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
+            const isExact = location.pathname === item.path;
+            const isSubPath = !exactMatchExists && item.path !== '/' && location.pathname.startsWith(item.path + '/');
+            const isActive = isExact || isSubPath;
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-3 py-1.5 text-sm ${isActive ? 'text-brand-500 bg-brand-600/10' : 'text-text-disabled hover:text-white hover:bg-ink-700'}`}
+                className={`nav-item rounded-none text-xs py-1.5 ${isActive ? 'nav-item-active' : ''}`}
               >
                 {item.label}
               </Link>
@@ -391,31 +393,31 @@ function SidebarGroup({ group, isCollapsed }) {
     );
   }
 
+  const exactMatchExists = group.items.some(i => location.pathname === i.path);
+
   return (
-    <div>
+    <div className="mb-1">
       <button
         onClick={() => setExpanded(!expanded)}
-        className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all ${
-          hasActive ? 'text-brand-500' : 'text-text-disabled hover:bg-ink-700 hover:text-white'
-        }`}
+        className={`nav-item justify-between ${hasActive && !expanded ? 'nav-item-active' : ''}`}
       >
-        {GroupIcon && <GroupIcon className="w-4 h-4 flex-shrink-0" />}
-        <span className="flex-1 text-left">{group.label}</span>
-        {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+        <div className="flex items-center gap-3 min-w-0">
+          {GroupIcon && <GroupIcon className="w-4 h-4 flex-shrink-0" />}
+          <span className="truncate">{group.label}</span>
+        </div>
+        {expanded ? <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />}
       </button>
       {expanded && (
-        <div className="ml-4 pl-3 border-l border-ink-700/50 mt-1 space-y-0.5 animate-fade-in">
+        <div className="ml-3.5 pl-2.5 border-l border-glass-border/60 mt-1 space-y-0.5 animate-fade-in">
           {group.items.map((item) => {
-            const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
+            const isExact = location.pathname === item.path;
+            const isSubPath = !exactMatchExists && item.path !== '/' && location.pathname.startsWith(item.path + '/');
+            const isActive = isExact || isSubPath;
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-3 py-1.5 rounded-md text-sm transition-all ${
-                  isActive
-                    ? 'text-white bg-brand-600/20 font-medium'
-                    : 'text-text-secondary hover:text-text-disabled hover:bg-ink-700/50'
-                }`}
+                className={`nav-item text-xs py-1.5 ${isActive ? 'nav-item-active' : ''}`}
               >
                 {item.label}
               </Link>
@@ -433,6 +435,7 @@ export default function Layout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogout = async () => {
@@ -445,39 +448,44 @@ export default function Layout() {
     : 'U';
 
   return (
-    <div className="flex h-screen bg-bg overflow-hidden">
+    <div className="app-shell flex h-screen overflow-hidden font-body text-foreground relative">
+      {/* Background Ambient Glow Orbs */}
+      <div className="ambient ambient-one" />
+      <div className="ambient ambient-two" />
+      <div className="ambient ambient-three" />
+
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setMobileOpen(false)} />
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden" onClick={() => setMobileOpen(false)} />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 flex flex-col bg-ink-900 transition-all duration-300 ${
-          sidebarCollapsed ? 'w-[68px]' : 'w-64'
+        className={`fixed lg:static inset-y-0 left-0 z-50 flex flex-col glass-sidebar transition-all duration-300 ${
+          sidebarCollapsed ? 'w-[76px]' : 'w-64'
         } ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        {/* Logo */}
-        <div className={`h-16 flex items-center border-b border-ink-700 flex-shrink-0 ${sidebarCollapsed ? 'justify-center px-2' : 'px-5'}`}>
+        {/* Logo / Header */}
+        <div className={`h-20 flex items-center border-b border-border/40 flex-shrink-0 ${sidebarCollapsed ? 'justify-center px-2' : 'px-5'}`}>
           {sidebarCollapsed ? (
-            <div className="w-9 h-9 rounded-md bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white font-bold text-sm">
-              U
+            <div className="brand-mark w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg font-heading shadow-md">
+              A
             </div>
           ) : (
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-md bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white font-bold text-sm">
-                U
+              <div className="brand-mark w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg font-heading shadow-md">
+                A
               </div>
               <div>
-                <h1 className="text-white font-bold text-base tracking-tight">UMS</h1>
-                <p className="text-text-secondary text-[10px] font-medium">Management System</p>
+                <h1 className="text-foreground font-bold text-base tracking-tight font-heading">Academix</h1>
+                <p className="text-muted-foreground text-[11px] font-medium tracking-wide">University Portal</p>
               </div>
             </div>
           )}
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto sidebar-scroll px-3 py-4 space-y-1">
+        <nav className="flex-1 overflow-y-auto sidebar-scroll px-3 py-4 space-y-1.5">
           {getNavGroupsForUser(user)
             .map(group => {
               // For Admin/Employee, apply the routesConfig filtering
@@ -512,10 +520,10 @@ export default function Layout() {
         </nav>
 
         {/* Collapse toggle */}
-        <div className="border-t border-ink-700 p-3 flex-shrink-0">
+        <div className="border-t border-glass-border/40 p-3 flex-shrink-0">
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="w-full flex items-center justify-center p-2 rounded-md text-text-disabled hover:bg-ink-700 hover:text-white transition-colors"
+            className="w-full flex items-center justify-center p-2 rounded-lg text-muted-foreground hover:bg-black/5 hover:text-foreground transition-colors"
           >
             {sidebarCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
           </button>
@@ -523,80 +531,59 @@ export default function Layout() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden min-w-0">
-        {/* Top Header */}
-        <header className="h-16 bg-surface border-b border-border flex items-center justify-between px-4 lg:px-6 flex-shrink-0 z-30">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="p-2 rounded-md hover:bg-bg lg:hidden"
-            >
-              <Menu className="w-5 h-5 text-text-secondary" />
-            </button>
-            {/* Search */}
-            <div className="hidden md:flex relative w-72">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search modules, records..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-bg border border-border rounded-md text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-600/20 focus:border-brand-500 transition-all"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Notifications */}
-            <button className="relative p-2 rounded-md hover:bg-bg transition-colors">
-              <Bell className="w-5 h-5 text-text-secondary" />
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-danger-500 ring-2 ring-white" />
-            </button>
-
-            {/* User Menu */}
-            <div className="relative">
+      <main className="flex-1 flex flex-col overflow-y-auto min-w-0">
+        {/* Top Header - Floating Glass Panel style */}
+        <div className="p-4 pb-0 lg:p-6 lg:pb-0 z-40 relative">
+          <header className="h-16 glass-panel flex items-center justify-between px-4 lg:px-6 flex-shrink-0 relative z-50">
+            <div className="flex items-center gap-4">
               <button
-                onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-3 p-1.5 rounded-md hover:bg-bg transition-colors"
+                onClick={() => setMobileOpen(true)}
+                className="p-2 rounded-lg hover:bg-black/5 lg:hidden"
               >
-                <div className="w-8 h-8 rounded-md bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white text-xs font-bold">
-                  {initials}
-                </div>
-                <div className="hidden md:block text-left">
-                  <p className="text-sm font-medium text-text-secondary">{user?.firstName || 'User'} {user?.lastName || ''}</p>
-                  <p className="text-xs text-text-disabled">{user?.scope || 'Admin'}</p>
-                </div>
-                <ChevronDown className="hidden md:block w-4 h-4 text-text-disabled" />
+                <Menu className="w-5 h-5 text-muted-foreground" />
+              </button>
+              {/* Search */}
+              <div className="hidden md:flex relative w-72">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <input
+                  type="text"
+                  placeholder="Search modules, records..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 glass-subtle rounded-xl text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all text-foreground"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {/* Notifications */}
+              <button
+                onClick={() => { setNotificationsOpen(!notificationsOpen); setUserMenuOpen(false); }}
+                className="relative p-2 rounded-xl hover:bg-black/5 transition-colors"
+              >
+                <Bell className="w-5 h-5 text-muted-foreground" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-destructive ring-2 ring-background" />
               </button>
 
-              {userMenuOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-surface rounded-md shadow-lg border border-border py-2 z-50 animate-scale-in">
-                    <div className="px-4 py-2 border-b border-border">
-                      <p className="text-sm font-medium text-text-primary">{user?.firstName} {user?.lastName}</p>
-                      <p className="text-xs text-text-secondary">{user?.email}</p>
-                    </div>
-                    <Link to="/settings" className="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-bg" onClick={() => setUserMenuOpen(false)}>
-                      <Settings className="w-4 h-4" /> Settings
-                    </Link>
-                    <Link to="/users" className="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-bg" onClick={() => setUserMenuOpen(false)}>
-                      <User className="w-4 h-4" /> My Profile
-                    </Link>
-                    <div className="border-t border-border mt-1 pt-1">
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center gap-3 px-4 py-2 text-sm text-danger-600 hover:bg-danger-50 w-full"
-                      >
-                        <LogOut className="w-4 h-4" /> Sign Out
-                      </button>
-                    </div>
+              {/* User Menu Trigger */}
+              <div className="relative">
+                <button
+                  onClick={() => { setUserMenuOpen(!userMenuOpen); setNotificationsOpen(false); }}
+                  className="flex items-center gap-3 p-1.5 rounded-xl hover:bg-black/5 transition-colors"
+                >
+                  <div className="brand-mark w-9 h-9 rounded-xl flex items-center justify-center text-white text-xs font-bold font-heading shadow-sm">
+                    {initials}
                   </div>
-                </>
-              )}
+                  <div className="hidden md:block text-left">
+                    <p className="text-sm font-semibold text-foreground tracking-tight">{user?.firstName || 'User'} {user?.lastName || ''}</p>
+                    <p className="text-[11px] text-muted-foreground font-medium">{user?.scope || 'Admin'}</p>
+                  </div>
+                  <ChevronDown className="hidden md:block w-4 h-4 text-muted-foreground" />
+                </button>
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
+        </div>
 
         {/* Page Content */}
         <div className="flex-1 overflow-y-auto p-4 lg:p-6">
@@ -605,6 +592,101 @@ export default function Layout() {
           </div>
         </div>
       </main>
+
+      {/* ======= DROPDOWNS rendered at ROOT level (outside <main>) so backdrop-filter blurs the real background ======= */}
+
+      {/* Notifications Dropdown */}
+      {notificationsOpen && (
+        <>
+          <div className="fixed inset-0 z-[998]" onClick={() => setNotificationsOpen(false)} />
+          <div
+            className="fixed z-[999] animate-scale-in"
+            style={{
+              top: '5.5rem',
+              right: '18rem',
+              width: '22rem',
+              maxHeight: '28rem',
+              background: 'rgba(255, 255, 255, 0.25)',
+              backdropFilter: 'blur(40px) saturate(1.8)',
+              WebkitBackdropFilter: 'blur(40px) saturate(1.8)',
+              border: '1px solid rgba(255, 255, 255, 0.45)',
+              borderRadius: '1rem',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.85), 0 24px 48px -12px rgba(30,58,138,0.22)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div className="px-4 py-3 border-b border-white/30 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-foreground">Notifications</h3>
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-brand/15 text-brand">3 New</span>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              {[
+                { title: 'New Student Enrolled', desc: 'Arjun Patel has been added to Class 10-A', time: '2 min ago', dot: 'bg-emerald-400' },
+                { title: 'Fee Payment Received', desc: '₹15,000 received from Priya Sharma', time: '15 min ago', dot: 'bg-blue-400' },
+                { title: 'Exam Schedule Updated', desc: 'Mid-term exams rescheduled to Oct 15', time: '1 hr ago', dot: 'bg-amber-400' },
+                { title: 'Attendance Report', desc: 'Daily attendance report is ready', time: '3 hrs ago', dot: 'bg-purple-400' },
+              ].map((n, i) => (
+                <div key={i} className="px-4 py-3 hover:bg-white/30 transition-colors cursor-pointer border-b border-white/15 last:border-0">
+                  <div className="flex items-start gap-3">
+                    <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${n.dot}`} />
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-foreground">{n.title}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 truncate">{n.desc}</p>
+                      <p className="text-[11px] text-muted-foreground/70 mt-1">{n.time}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="px-4 py-2.5 border-t border-white/30 text-center">
+              <button className="text-xs font-semibold text-brand hover:text-brand/80 transition-colors">View All Notifications</button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Profile Dropdown */}
+      {userMenuOpen && (
+        <>
+          <div className="fixed inset-0 z-[998]" onClick={() => setUserMenuOpen(false)} />
+          <div
+            className="fixed z-[999] animate-scale-in"
+            style={{
+              top: '5.5rem',
+              right: '1.5rem',
+              width: '14rem',
+              background: 'rgba(255, 255, 255, 0.25)',
+              backdropFilter: 'blur(40px) saturate(1.8)',
+              WebkitBackdropFilter: 'blur(40px) saturate(1.8)',
+              border: '1px solid rgba(255, 255, 255, 0.45)',
+              borderRadius: '1rem',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.85), 0 24px 48px -12px rgba(30,58,138,0.22)',
+              overflow: 'hidden',
+            }}
+          >
+            <div className="px-4 py-3 border-b border-white/30">
+              <p className="text-sm font-semibold text-foreground">{user?.firstName} {user?.lastName}</p>
+              <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+            </div>
+            <Link to="/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-white/30 transition-colors" onClick={() => setUserMenuOpen(false)}>
+              <Settings className="w-4 h-4" /> Settings
+            </Link>
+            <Link to="/users" className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-white/30 transition-colors" onClick={() => setUserMenuOpen(false)}>
+              <User className="w-4 h-4" /> My Profile
+            </Link>
+            <div className="border-t border-white/30 mt-1 pt-1">
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-destructive/10 w-full transition-colors font-medium"
+              >
+                <LogOut className="w-4 h-4" /> Sign Out
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
