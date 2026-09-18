@@ -10,6 +10,7 @@ dist-ssr/
 .env.production
 .env.development
 !.env.example
+!.env.production
 
 # Logs & Temp files
 logs
