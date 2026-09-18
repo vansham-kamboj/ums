@@ -1,29 +1,29 @@
 import { createContext, useContext, useState, useCallback } from 'react';
-import { CheckCircle, XCircle, AlertTriangle, Info, X } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertTriangle, Info, X } from 'lucide-react';
 
 const ToastContext = createContext(null);
 
 let toastId = 0;
 
 const icons = {
-  success: CheckCircle,
+  success: CheckCircle2,
   error: XCircle,
   warning: AlertTriangle,
   info: Info,
 };
 
-const colors = {
-  success: 'bg-success-50 border-success-500 text-success-700',
-  error: 'bg-danger-50 border-danger-500 text-danger-700',
-  warning: 'bg-warning-50 border-warning-500 text-warning-600',
-  info: 'bg-brand-100 border-primary-500 text-brand-600',
+const badgeStyles = {
+  success: 'bg-[#10B981] text-white shadow-sm shadow-emerald-500/20',
+  error: 'bg-[#EF4444] text-white shadow-sm shadow-red-500/20',
+  warning: 'bg-[#F59E0B] text-white shadow-sm shadow-amber-500/20',
+  info: 'bg-[#2563EB] text-white shadow-sm shadow-blue-500/20',
 };
 
-const iconColors = {
-  success: 'text-success-500',
-  error: 'text-danger-500',
-  warning: 'text-warning-500',
-  info: 'text-brand-500',
+const borderAccent = {
+  success: 'border-l-4 border-l-[#10B981]',
+  error: 'border-l-4 border-l-[#EF4444]',
+  warning: 'border-l-4 border-l-[#F59E0B]',
+  info: 'border-l-4 border-l-[#2563EB]',
 };
 
 export function ToastProvider({ children }) {
@@ -55,20 +55,26 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={toast}>
       {children}
-      {/* Toast Container */}
-      <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+      {/* Toast Notification Container */}
+      <div className="fixed top-5 right-5 z-[9999] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
         {toasts.map((t) => {
-          const Icon = icons[t.type];
+          const Icon = icons[t.type] || Info;
           return (
             <div
               key={t.id}
-              className={`pointer-events-auto flex items-start gap-3 px-4 py-3 rounded-md border-l-4 shadow-lg ${colors[t.type]} ${t.leaving ? 'animate-toast-out' : 'animate-toast-in'}`}
+              className={`pointer-events-auto flex items-center gap-3.5 px-4.5 py-3.5 rounded-2xl bg-white border border-[#E2E8F0] ${borderAccent[t.type]} shadow-[inset_0_1px_2px_rgba(255,255,255,1),0_14px_35px_-8px_rgba(15,23,42,0.15)] transition-all ${
+                t.leaving ? 'animate-toast-out' : 'animate-toast-in'
+              }`}
             >
-              <Icon className={`w-5 h-5 mt-0.5 flex-shrink-0 ${iconColors[t.type]}`} />
-              <p className="text-sm font-medium flex-1">{t.message}</p>
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${badgeStyles[t.type]}`}>
+                <Icon className="w-4.5 h-4.5" />
+              </div>
+              <p className="text-xs font-bold text-[#0F172A] leading-snug flex-1 tracking-tight">{t.message}</p>
               <button
+                type="button"
                 onClick={() => removeToast(t.id)}
-                className="flex-shrink-0 p-0.5 rounded hover:bg-black/5 transition-colors"
+                className="shrink-0 p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                title="Dismiss"
               >
                 <X className="w-4 h-4" />
               </button>

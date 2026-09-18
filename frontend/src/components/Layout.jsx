@@ -437,10 +437,18 @@ export default function Layout() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const handleLogout = async () => {
-    await logout();
-    navigate('/login');
+    setLoggingOut(true);
+    try {
+      await logout();
+    } catch (e) {
+      // ignore
+    } finally {
+      setLoggingOut(false);
+      navigate('/login');
+    }
   };
 
   const initials = user
@@ -558,8 +566,9 @@ export default function Layout() {
             <div className="flex items-center gap-3">
               {/* Notifications */}
               <button
+                type="button"
                 onClick={() => { setNotificationsOpen(!notificationsOpen); setUserMenuOpen(false); }}
-                className="relative p-2 rounded-xl hover:bg-black/5 transition-colors"
+                className="relative p-2 rounded-xl hover:bg-black/5 transition-colors cursor-pointer"
               >
                 <Bell className="w-5 h-5 text-muted-foreground" />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-destructive ring-2 ring-background" />
@@ -568,8 +577,9 @@ export default function Layout() {
               {/* User Menu Trigger */}
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => { setUserMenuOpen(!userMenuOpen); setNotificationsOpen(false); }}
-                  className="flex items-center gap-3 p-1.5 rounded-xl hover:bg-black/5 transition-colors"
+                  className="flex items-center gap-3 p-1.5 rounded-xl hover:bg-black/5 transition-colors cursor-pointer"
                 >
                   <div className="brand-mark w-9 h-9 rounded-xl flex items-center justify-center text-white text-xs font-bold font-heading shadow-sm">
                     {initials}
@@ -604,44 +614,58 @@ export default function Layout() {
             style={{
               top: '5.5rem',
               right: '18rem',
-              width: '22rem',
-              maxHeight: '28rem',
-              background: 'rgba(255, 255, 255, 0.25)',
-              backdropFilter: 'blur(40px) saturate(1.8)',
-              WebkitBackdropFilter: 'blur(40px) saturate(1.8)',
-              border: '1px solid rgba(255, 255, 255, 0.45)',
-              borderRadius: '1rem',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.85), 0 24px 48px -12px rgba(30,58,138,0.22)',
+              width: '23rem',
+              maxHeight: '29rem',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #E2E8F0',
+              borderRadius: '1.25rem',
+              boxShadow: 'inset 0 1px 2px rgba(255,255,255,1), 0 20px 50px -10px rgba(15, 23, 42, 0.16)',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
             }}
           >
-            <div className="px-4 py-3 border-b border-white/30 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-foreground">Notifications</h3>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-brand/15 text-brand">3 New</span>
+            <div className="px-5 py-3.5 bg-[#F8FAFC] border-b border-[#E2E8F0] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-[#0F172A]">Notifications</h3>
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">3 New</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setNotificationsOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer"
+                title="Close"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto p-2 space-y-2 bg-white">
               {[
-                { title: 'New Student Enrolled', desc: 'Arjun Patel has been added to Class 10-A', time: '2 min ago', dot: 'bg-emerald-400' },
-                { title: 'Fee Payment Received', desc: '₹15,000 received from Priya Sharma', time: '15 min ago', dot: 'bg-blue-400' },
-                { title: 'Exam Schedule Updated', desc: 'Mid-term exams rescheduled to Oct 15', time: '1 hr ago', dot: 'bg-amber-400' },
-                { title: 'Attendance Report', desc: 'Daily attendance report is ready', time: '3 hrs ago', dot: 'bg-purple-400' },
+                { title: 'New Student Enrolled', desc: 'Arjun Patel has been added to Class 10-A', time: '2 min ago', dot: 'bg-emerald-500' },
+                { title: 'Fee Payment Received', desc: '₹15,000 received from Priya Sharma', time: '15 min ago', dot: 'bg-blue-600' },
+                { title: 'Exam Schedule Updated', desc: 'Mid-term exams rescheduled to Oct 15', time: '1 hr ago', dot: 'bg-amber-500' },
+                { title: 'Attendance Report', desc: 'Daily attendance report is ready', time: '3 hrs ago', dot: 'bg-purple-500' },
               ].map((n, i) => (
-                <div key={i} className="px-4 py-3 hover:bg-white/30 transition-colors cursor-pointer border-b border-white/15 last:border-0">
+                <div key={i} className="p-3.5 rounded-2xl bg-[#F4F8FD] hover:bg-white border border-[#E1EAF3] hover:border-blue-300 shadow-[inset_0_1px_3px_rgba(15,23,42,0.04)] transition-all cursor-pointer group">
                   <div className="flex items-start gap-3">
-                    <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${n.dot}`} />
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-foreground">{n.title}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5 truncate">{n.desc}</p>
-                      <p className="text-[11px] text-muted-foreground/70 mt-1">{n.time}</p>
+                    <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 ${n.dot}`} />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">{n.title}</p>
+                      <p className="text-xs text-[#526075] mt-0.5 truncate font-medium">{n.desc}</p>
+                      <p className="text-[11px] text-slate-400 mt-1 font-medium">{n.time}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="px-4 py-2.5 border-t border-white/30 text-center">
-              <button className="text-xs font-semibold text-brand hover:text-brand/80 transition-colors">View All Notifications</button>
+            <div className="px-4 py-3 bg-[#F8FAFC] border-t border-[#E2E8F0] text-center">
+              <button 
+                type="button"
+                onClick={() => { setNotificationsOpen(false); navigate('/notifications'); }}
+                className="text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
+              >
+                View All Notifications
+              </button>
             </div>
           </div>
         </>
@@ -670,22 +694,52 @@ export default function Layout() {
               <p className="text-sm font-semibold text-foreground">{user?.firstName} {user?.lastName}</p>
               <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
             </div>
-            <Link to="/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-white/30 transition-colors" onClick={() => setUserMenuOpen(false)}>
-              <Settings className="w-4 h-4" /> Settings
-            </Link>
-            <Link to="/users" className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground/80 hover:bg-white/30 transition-colors" onClick={() => setUserMenuOpen(false)}>
-              <User className="w-4 h-4" /> My Profile
-            </Link>
-            <div className="border-t border-white/30 mt-1 pt-1">
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-destructive/10 w-full transition-colors font-medium"
+            <div className="p-1 space-y-0.5">
+              <Link 
+                to="/settings" 
+                className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-white/40 transition-all cursor-pointer" 
+                onClick={() => setUserMenuOpen(false)}
               >
-                <LogOut className="w-4 h-4" /> Sign Out
+                <Settings className="w-4 h-4 text-muted-foreground" /> Settings
+              </Link>
+              <Link 
+                to="/users" 
+                className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-white/40 transition-all cursor-pointer" 
+                onClick={() => setUserMenuOpen(false)}
+              >
+                <User className="w-4 h-4 text-muted-foreground" /> My Profile
+              </Link>
+            </div>
+            <div className="border-t border-white/30 p-1 mt-0.5">
+              <button
+                type="button"
+                disabled={loggingOut}
+                onClick={handleLogout}
+                className="group flex items-center gap-3 px-3.5 py-2.5 text-sm rounded-xl text-red-600 hover:text-red-700 hover:bg-red-500/15 w-full transition-all font-semibold cursor-pointer disabled:opacity-50"
+              >
+                {loggingOut ? (
+                  <div className="w-4 h-4 border-2 border-red-600/30 border-t-red-600 rounded-full animate-spin shrink-0" />
+                ) : (
+                  <LogOut className="w-4 h-4 transition-transform group-hover:-translate-x-0.5 shrink-0" />
+                )}
+                <span>{loggingOut ? 'Signing out...' : 'Sign Out'}</span>
               </button>
             </div>
           </div>
         </>
+      )}
+
+      {/* Full-screen Glass Loading Overlay on Sign Out */}
+      {loggingOut && (
+        <div className="fixed inset-0 z-[9999] bg-slate-900/40 backdrop-blur-md flex items-center justify-center animate-fade-in">
+          <div className="px-8 py-6 rounded-3xl flex flex-col items-center gap-3 border border-white/60 bg-[#E8F1F8]/90 shadow-2xl backdrop-blur-xl">
+            <div className="w-9 h-9 border-3 border-blue-600/30 border-t-blue-600 rounded-full animate-spin" />
+            <div className="text-center">
+              <p className="text-sm font-bold text-[#0F172A]">Signing out...</p>
+              <p className="text-xs text-[#526075] mt-0.5 font-medium">Securing session and clearing credentials</p>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
