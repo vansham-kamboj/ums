@@ -6,7 +6,19 @@ let io;
 export function initSocket(httpServer) {
   io = new Server(httpServer, {
     cors: {
-      origin: env.socketCorsOrigin.split(',').map(o => o.trim()),
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const allowed = env.socketCorsOrigin.split(',').map(o => o.trim());
+        if (
+          allowed.includes('*') ||
+          allowed.includes(origin) ||
+          origin.endsWith('.vercel.app') ||
+          origin.includes('localhost')
+        ) {
+          return callback(null, true);
+        }
+        callback(null, false);
+      },
       credentials: true,
     },
     transports: ['websocket', 'polling'],

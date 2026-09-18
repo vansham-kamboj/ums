@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: API_BASE_URL,
   timeout: 15000,
 });
 
@@ -31,7 +33,7 @@ api.interceptors.response.use(
 
       if (refreshToken && !originalRequest.url?.includes('/auth/refresh-token')) {
         try {
-          const res = await axios.post('http://localhost:3000/api/auth/refresh-token', {
+          const res = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {
             refreshToken,
           });
           const newToken = res.data.data.accessToken;
