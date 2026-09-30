@@ -86,6 +86,9 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'UMS API is running', timestamp: new Date().toISOString() });
 });
 
+// Generic CRUD router for mapped endpoints
+app.use('/api', genericRoutes);
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -130,9 +133,6 @@ app.use('/api/website', websiteRoutes);
 app.use('/api/utilities', utilityRoutes);
 app.use('/api/import-export', importExportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
-
-// Generic CRUD router fallback for unmapped endpoints
-app.use('/api', genericRoutes);
 
 
 // Error handling

@@ -32,12 +32,30 @@ const sanitizePayload = (modelName, rawPayload) => {
     // Skip relation object fields that aren't scalar/enum values
     if (fieldMeta.kind === 'object') return;
 
-    if (val === '') {
+    if (val === '' || val === null || val === undefined) {
       cleanPayload[key] = null;
-    } else if (val === 'true') {
-      cleanPayload[key] = true;
-    } else if (val === 'false') {
-      cleanPayload[key] = false;
+      return;
+    }
+
+    if (fieldMeta.type === 'DateTime') {
+      const parsedDate = new Date(val);
+      if (!isNaN(parsedDate.getTime())) {
+        cleanPayload[key] = parsedDate;
+      } else {
+        cleanPayload[key] = val;
+      }
+    } else if (fieldMeta.type === 'Boolean') {
+      if (val === 'true' || val === true) {
+        cleanPayload[key] = true;
+      } else if (val === 'false' || val === false) {
+        cleanPayload[key] = false;
+      } else {
+        cleanPayload[key] = Boolean(val);
+      }
+    } else if (fieldMeta.type === 'Int' && typeof val === 'string' && !isNaN(Number(val))) {
+      cleanPayload[key] = parseInt(val, 10);
+    } else if ((fieldMeta.type === 'Float' || fieldMeta.type === 'Decimal') && typeof val === 'string' && !isNaN(Number(val))) {
+      cleanPayload[key] = parseFloat(val);
     } else {
       cleanPayload[key] = val;
     }

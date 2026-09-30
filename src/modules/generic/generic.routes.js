@@ -8,23 +8,21 @@ const router = Router();
 
 // Middleware to inject the correct Prisma model name into the request
 const injectModel = (req, res, next) => {
-  // Try to find the longest matching endpoint in routeModelMap
-  // We sort by length descending to match more specific routes first
   const endpoints = Object.keys(routeModelMap).sort((a, b) => b.length - a.length);
   
-  // Since this router is mounted at /api, req.path might be /academic/courses or /academic/courses/123
-  // Let's find the matching base endpoint
   let matchedModel = null;
+  let matchedEndpoint = null;
   for (const ep of endpoints) {
     if (req.path === ep || req.path.startsWith(`${ep}/`)) {
       matchedModel = routeModelMap[ep];
+      matchedEndpoint = ep;
       break;
     }
   }
 
   if (matchedModel) {
     req.modelName = matchedModel;
-    req.baseEndpoint = endpoints.find(ep => matchedModel === routeModelMap[ep] && req.path.startsWith(ep));
+    req.baseEndpoint = matchedEndpoint;
     next();
   } else {
     // If no match is found, just pass to next middleware (so the custom routes can handle it)
@@ -34,16 +32,14 @@ const injectModel = (req, res, next) => {
 
 // Generic CRUD endpoints mapped by `injectModel`
 router.get('/*', authenticate, requireTeam, injectModel, (req, res, next) => {
-  if (req.modelName) {
-    const parts = req.path.split('/');
-    const lastPart = parts[parts.length - 1];
+  if (req.modelName && req.baseEndpoint) {
+    const baseParts = req.baseEndpoint.split('/').filter(Boolean);
+    const reqParts = req.path.split('/').filter(Boolean);
     
-    // Distinguish between GET /api/.../entities and GET /api/.../entities/:id
-    // If the path exactly matches the base endpoint, it's a list.
     if (req.path === req.baseEndpoint) {
       return ctrl.list(req, res, next);
-    } else {
-      req.params.id = lastPart;
+    } else if (reqParts.length === baseParts.length + 1) {
+      req.params.id = reqParts[reqParts.length - 1];
       return ctrl.getById(req, res, next);
     }
   }
@@ -51,7 +47,7 @@ router.get('/*', authenticate, requireTeam, injectModel, (req, res, next) => {
 });
 
 router.post('/*', authenticate, requireTeam, injectModel, (req, res, next) => {
-  if (req.modelName) {
+  if (req.modelName && req.baseEndpoint) {
     if (req.path === req.baseEndpoint) {
       return ctrl.create(req, res, next);
     }
@@ -60,19 +56,25 @@ router.post('/*', authenticate, requireTeam, injectModel, (req, res, next) => {
 });
 
 router.put('/*', authenticate, requireTeam, injectModel, (req, res, next) => {
-  if (req.modelName) {
-    const parts = req.path.split('/');
-    req.params.id = parts[parts.length - 1];
-    return ctrl.update(req, res, next);
+  if (req.modelName && req.baseEndpoint) {
+    const baseParts = req.baseEndpoint.split('/').filter(Boolean);
+    const reqParts = req.path.split('/').filter(Boolean);
+    if (reqParts.length === baseParts.length + 1) {
+      req.params.id = reqParts[reqParts.length - 1];
+      return ctrl.update(req, res, next);
+    }
   }
   next();
 });
 
 router.delete('/*', authenticate, requireTeam, injectModel, (req, res, next) => {
-  if (req.modelName) {
-    const parts = req.path.split('/');
-    req.params.id = parts[parts.length - 1];
-    return ctrl.remove(req, res, next);
+  if (req.modelName && req.baseEndpoint) {
+    const baseParts = req.baseEndpoint.split('/').filter(Boolean);
+    const reqParts = req.path.split('/').filter(Boolean);
+    if (reqParts.length === baseParts.length + 1) {
+      req.params.id = reqParts[reqParts.length - 1];
+      return ctrl.remove(req, res, next);
+    }
   }
   next();
 });
